@@ -23,5 +23,5 @@ cat ./sql | tail -n +4 >> $TEMP
 
 cp $TEMP ${LOCATION}/sql
 chmod u+x ${LOCATION}/sql
-
+ln -sfn ${LOCATION}/sql ${LOCATION}/SELECT
 rm -f $TEMP
