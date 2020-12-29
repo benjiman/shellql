@@ -6,5 +6,5 @@ select
     cast(_2 as integer) as used,
     cast(_3 as integer) as available, 
     cast(rtrim(_4,'%') as real) as used_percentage, 
-    _6 as mounted_on
+    _5 as mounted_on
 from cols_stdin where filesystem != 'Filesystem';
