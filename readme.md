@@ -48,7 +48,7 @@ bar     2000
 baz     4000
 ```
 
-```
+```bash
 $> ps aux | SELECT executable from psaux ORDER BY cpu DESC LIMIT 1
 /opt/google/chrome/chrome
 
