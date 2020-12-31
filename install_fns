@@ -4,7 +4,7 @@ replace_literal_whitespace() {
 }
 
 bash_safe_sql() {
-    cat - |  sed -e 's/\(\$\[\|`\)/\\\\\1/g' -e "s/*/'*'/g"
+    cat - |  sed -e 's/\(\$\[\|`\)/\\\\\1/g' 
 }
 
 sql_file_to_string() {

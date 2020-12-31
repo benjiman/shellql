@@ -115,3 +115,6 @@ select
     cast(json_extract(line,'$[31]') as integer) as _i31,
     cast(json_extract(line,'$[31]') as double) as _d31
 from json_stdin;
+
+drop view if exists cols;
+create view cols as select * from cols_stdin;

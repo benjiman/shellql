@@ -24,6 +24,6 @@
 }
 
 @test "SELECT from three columns and use numerical type to sort" {
-  result="$( echo -e "1 bar baz\n3 beta gamma\n2 rab zab" | SELECT _2 from cols_stdin where _i0 \> 1 order by _i0 desc )"
+  result="$( echo -e "1 bar baz\n3 beta gamma\n2 rab zab" | SELECT _2 from cols where _i0 \> 1 order by _i0 desc )"
   assert_equals "gamma\nzab" "$result"
 }
