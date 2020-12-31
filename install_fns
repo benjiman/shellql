@@ -1,30 +1,29 @@
 sql_to_bash() {
     cat $1 | sed -e 's/`/\\`/g'  | sed -e 's/\$/\\$/g'
 }
+replace_literal_whitespace() {
+    cat - | awk '{printf "%s\\n", $0}' 
+}
+
+bash_safe_sql() {
+    cat - |  sed -e 's/\(\$\[\|`\)/\\\\\1/g'
+}
+
+sql_file_to_string() {
+    echo -e '$(cat << EOVIEWS\n' "$(cat $@)" '\nEOVIEWS\n);' | replace_literal_whitespace | bash_safe_sql
+}
+
+inline_sql() {
+    VIEWS=$(sql_file_to_string ./views.d/*.sql) 
+    SCHEMA=$(sql_file_to_string ./schema.sql)
+    sed -e "s/VIEWS_FILES=.*/VIEWS_FILES=$VIEWS/" -e "s/SCHEMA_FILE=.*/SCHEMA_FILE=$SCHEMA/" sql
+}
 
 install() {
-
     LOCATION=${1:-"$HOME/bin"}
-    echo "Installing to $LOCATION/sql"
-    TEMP=$(mktemp)
-    echo '#!/bin/bash' >> $TEMP
 
-    echo 'SCHEMA=$(cat << EOSCHEMA' >> $TEMP
-    sql_to_bash ./schema.sql >> $TEMP
-    echo 'EOSCHEMA' >> $TEMP
-    echo ');' >> $TEMP
-
-    echo 'VIEWS=$(cat << EOVIEWS' >> $TEMP
-    sql_to_bash "./views.d/*.sql" >> $TEMP
-    echo 'EOVIEWS' >> $TEMP
-    echo ');' >> $TEMP
-
-    cat ./sql | tail -n +4 >> $TEMP
-
-    cp $TEMP ${LOCATION}/sql
+    inline_sql > ${LOCATION}/sql
     chmod u+x ${LOCATION}/sql
     ln -sfn ${LOCATION}/sql ${LOCATION}/SELECT
-    rm -f $TEMP
-
 }    
     
