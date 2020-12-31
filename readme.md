@@ -47,3 +47,10 @@ $> ls -l | SELECT filename,file_size FROM lsl where file_size \> 100 order by fi
 bar     2000
 baz     4000
 ```
+
+```
+$> ps aux | SELECT executable from psaux ORDER BY cpu DESC LIMIT 1
+/opt/google/chrome/chrome
+
+```
+
