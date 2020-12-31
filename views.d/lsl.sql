@@ -2,10 +2,10 @@ drop view if exists lsl;
 create view lsl as 
 select 
     _0 as permissions, 
-    cast(_1 as integer) as link_count, 
+    _i1 as link_count, 
     _2 as owner, 
     _3 as `group`, 
-    cast(_4 as integer) as file_size, 
+    _i4 as file_size, 
     _6 || ' ' || _7 as timestamp, 
     _8 as filename,
     substr(_0,1,1) as permissions_type,
@@ -19,4 +19,5 @@ select
     case when substr(_0,8,1) != '-' then true else false end as permissions_others_read,
     case when substr(_0,9,1) != '-' then true else false end as permissions_others_write,
     case when substr(_0,10,1) != '-' then true else false end as permissions_others_execute
-from cols_stdin;
+from cols_stdin
+WHERE _0 != 'total';
