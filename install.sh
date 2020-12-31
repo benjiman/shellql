@@ -5,7 +5,7 @@
 run_tests() {
     pushd tests
     bats *.bats
-    popd
+    popd &> /dev/null
 }
 
 if [[ "$*" =~ .*skip-tests.* ]]; then
