@@ -1,7 +1,8 @@
 super.setup() {
     INSTALL_DIR=$(mktemp -d --suffix='.shellql-tests')
     pushd ..
-    ./install.sh $INSTALL_DIR
+    . ./install_fns
+    install $INSTALL_DIR
     popd
     export PATH="$INSTALL_DIR:$PATH"
 }

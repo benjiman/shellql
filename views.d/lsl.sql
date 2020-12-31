@@ -18,6 +18,7 @@ select
     case when substr(_0,7,1) != '-' then true else false end as permissions_group_execute,
     case when substr(_0,8,1) != '-' then true else false end as permissions_others_read,
     case when substr(_0,9,1) != '-' then true else false end as permissions_others_write,
-    case when substr(_0,10,1) != '-' then true else false end as permissions_others_execute
+    case when substr(_0,10,1) != '-' then true else false end as permissions_others_execute,
+    case when substr(_0,4,1) != '-' or substr(_0,7,1) != '-' or substr(_0,10,1) != '-' then true else false end as executable
 from cols_stdin
 WHERE _0 != 'total';
